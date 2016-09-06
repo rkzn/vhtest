@@ -1,0 +1,23 @@
+{% extends 'VirtualHealthBundle::main.html.twig' %}
+{% block title %}{{ parent() }} - Задача 1{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Задача 1</h1>
+    </div>
+
+    <div class="jumbotron">
+        <p>SQLкод:
+            Каким образом можно получить все записи tb_source с title, начинающимся
+            на 'title 1' и с привязанным NDC-аттрибутом
+            из табллицы tb_rel?</p>
+    </div>
+
+    <h3>SQL</h3>
+    <pre>
+SELECT s.title, r.ndc
+FROM `tb_source` s
+INNER JOIN `tb_rel` r USING(cx)
+WHERE 1
+AND s.`title` LIKE 'title 1%';
+    </pre>
+{% endblock %}

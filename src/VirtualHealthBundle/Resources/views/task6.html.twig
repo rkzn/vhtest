@@ -1,0 +1,39 @@
+{% extends 'VirtualHealthBundle::main.html.twig' %}
+{% block title %}{{ parent() }} - Задача 6{% endblock %}
+{% block content %}
+<div class="page-header">
+    <h1>Задача 6</h1>
+</div>
+
+    <div class="jumbotron">
+        <p>Реализовать 4ю или 5ю задачу, используя кэширование результатов получаемых из БД</p>
+    </div>
+
+    <table class="table table-normal">
+        <thead class="center">
+        <tr>
+            <th>{{ knp_pagination_sortable(items, 'cx', 's.cx') }}</th>
+            <th>{{ knp_pagination_sortable(items, 'rx', 's.rx') }}</th>
+            <th>{{ knp_pagination_sortable(items, 'title', 's.title') }}</th>
+            <th>ndc</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items  %}
+
+            {% for rel in item.rel  %}
+                <tr>
+                    <td>{{ item.cx }}</td>
+                    <td>{{ item.rx }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ rel.ndc }}</td>
+                </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(items) }}
+    </div>
+{% endblock %}

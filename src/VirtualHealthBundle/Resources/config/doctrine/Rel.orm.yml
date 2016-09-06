@@ -1,0 +1,30 @@
+VirtualHealthBundle\Entity\Rel:
+    type: entity
+    table: tb_rel
+    indexes:
+        idx_cx:
+            columns: [ cx ]
+        idx_ndc:
+            columns: [ ndc ]
+    id:
+        id:
+          type: integer
+          nullable: false
+          length: 10
+          options:
+            unsigned: true
+          generator:
+            strategy: AUTO
+    fields:
+        cx:
+          type: integer
+          nullable: false
+          length: 10
+          column: cx
+          options:
+            unsigned: true
+        ndc:
+            type: string
+            nullable: false
+            length: 20
+            column: ndc

@@ -1,0 +1,32 @@
+{% extends 'VirtualHealthBundle::main.html.twig' %}
+{% block title %}{{ parent() }} - Задача 5{% endblock %}
+{% block content %}
+    <h3>Решение 1­ой задачи без использования ORM</h3>
+
+    <table class="table table-normal">
+        <thead class="center">
+        <tr>
+            <th>cx</th>
+            <th>rx</th>
+            <th>title</th>
+            <th>ndc</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items  %}
+            <tr>
+                <td>{{ item.cx }}</td>
+                <td>{{ item.rx }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.ndc }}</td>
+            </tr>
+
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(items) }}
+    </div>
+
+{% endblock %}

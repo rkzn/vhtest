@@ -1,0 +1,38 @@
+{% extends 'VirtualHealthBundle::main.html.twig' %}
+{% block title %}{{ parent() }} - Задача 4{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Задача 4</h1>
+    </div>
+
+    <h3>Решение 1­ой задачи на базе ORM (ActiveRecord, Data Mapper)</h3>
+
+    <table class="table table-normal">
+        <thead class="center">
+        <tr>
+            <th>{{ knp_pagination_sortable(items, 'cx', 's.cx') }}</th>
+            <th>{{ knp_pagination_sortable(items, 'rx', 's.rx') }}</th>
+            <th>{{ knp_pagination_sortable(items, 'title', 's.title') }}</th>
+            <th>ndc</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in items  %}
+
+            {% for rel in item.rel  %}
+            <tr>
+                <td>{{ item.cx }}</td>
+                <td>{{ item.rx }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ rel.ndc }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(items) }}
+    </div>
+
+{% endblock %}

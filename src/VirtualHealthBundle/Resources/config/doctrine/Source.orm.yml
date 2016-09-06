@@ -1,0 +1,48 @@
+VirtualHealthBundle\Entity\Source:
+    type: entity
+    table: tb_source
+    indexes:
+        idx_cx:
+            columns: [ cx ]
+        idx_rx:
+            columns: [ rx ]
+        idx_title:
+            columns: [ title ]
+    id:
+        id:
+          type: integer
+          options:
+            unsigned: true
+          generator:
+            strategy: AUTO
+
+    fields:
+        cx:
+          type: integer
+          nullable: false
+          length: 10
+          column: cx
+
+        rx:
+            type: integer
+            length: 10
+            nullable: false
+            column: rx
+
+        title:
+            type: string
+            length: 100
+            nullable: false
+            column: title
+
+    manyToMany:
+        rel:
+            targetEntity: VirtualHealthBundle\Entity\Rel
+            joinTable:
+                name: tb_source_rel
+                joinColumn:
+                    source_id:
+                      referencedColumnName: id
+                inverseJoinColumns:
+                    rel_id:
+                      referencedColumnName: id

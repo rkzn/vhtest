@@ -1,0 +1,58 @@
+{% extends 'VirtualHealthBundle::main.html.twig' %}
+{% block title %}{{ parent() }} - Задача 3{% endblock %}
+{% block content %}
+    <div class="page-header">
+        <h1>Задача 3</h1>
+    </div>
+    <div class="jumbotron">
+        <p>Дать рекомендации по структуре таблиц и хранению данных, если:</p>
+        <ul>
+            <li>Таблицы не относятся к категории Write-Intensive. Данные в таблицах обновляются 1 раз в неделю.</li>
+            <li>Через год количество записей в каждой таблице может превысить отметку в 1 млн записей.</li>
+            <li>На web странице будет необходимо отображать данные из этих таблиц.</li>
+        </ul>
+        <p>Поясните путь решения и почему сделали так.</p>
+    </div>
+
+    <h3># Рекомендации</h3>
+
+    <p>1. Изменить тип полей <strong>cx</strong> на INT UNSIGNED NOT NULL</p>
+    <pre>
+    ALTER TABLE `tb_source` CHANGE `cx` `cx` INT(10) UNSIGNED NOT NULL;
+    ALTER TABLE `tb_rel` CHANGE `cx` `cx` INT(10) UNSIGNED NOT NULL;
+    </pre>
+
+
+    <p>2. Добавить индексы на поля</p>
+    <pre>
+    ALTER TABLE `tb_source` ADD INDEX (`cx`), ADD INDEX (`title`), ADD INDEX (`rx`);
+    ALTER TABLE `tb_rel` ADD INDEX (`cx`), ADD INDEX (`ndc`);
+    </pre>
+
+
+    <p>3. Таблицы фиксированного размера (статичные) — быстрее,
+        поэтому лучше поля типа VARCHAR изменить тип на CHAR</p>
+
+    <p>4. В задании не указан тип связи таблиц по полям CX.
+        Так как в обеих таблицах поля cx не уникальны, то логично предположить, что связь MANY_TO_MANY</p>
+
+    <p>5. Для реальзации ORM в Doctrine и связи MANY_TO_MANY я бы сделал:<br />
+        - В каждой табице поле ID PRIMARY AUTOINCREMENT<br />
+        - Промежуточную таблицу связей tb_source_rel с полями source_id, rel_id</p>
+<pre>
+    CREATE TABLE `tb_source_rel`( `source_id` INT(11) UNSIGNED NOT NULL, `rel_id` INT(11) UNSIGNED NOT NULL, PRIMARY KEY (`source_id`, `rel_id`) ) ENGINE=INNODB CHARSET=utf8;
+</pre>
+    <p>- заполнил таблицу нужными данными</p>
+<pre>
+INSERT INTO `tb_source_rel` (source_id, rel_id)
+SELECT
+s.id sid, r.id rid
+FROM `tb_source` s
+JOIN `tb_rel` r USING (cx)
+WHERE 1;
+</pre>
+
+    <p>
+        6. При росте данных в таблицах изменить тип таблиц на MyISAM и добавить партиции по ключу
+    </p>
+{% endblock %}

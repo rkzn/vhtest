@@ -1,0 +1,21 @@
+virtual_health_homepage:
+    path:     /
+    defaults: { _controller: VirtualHealthBundle:Default:index }
+virtual_health_task1:
+    path:     /task1
+    defaults: { _controller: VirtualHealthBundle:Default:task1 }
+virtual_health_task2:
+    path:     /task2
+    defaults: { _controller: VirtualHealthBundle:Default:task2 }
+virtual_health_task3:
+    path:     /task3
+    defaults: { _controller: VirtualHealthBundle:Default:task3 }
+virtual_health_task4:
+    path:     /task4
+    defaults: { _controller: VirtualHealthBundle:Default:task4 }
+virtual_health_task5:
+    path:     /task5
+    defaults: { _controller: VirtualHealthBundle:Default:task5 }
+virtual_health_task6:
+    path:     /task6
+    defaults: { _controller: VirtualHealthBundle:Default:task6 }
